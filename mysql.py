@@ -14,6 +14,8 @@ optional arguments:
   -h, --help  show this help message and exit
   --dir DIR   target directory to store the backups
               [default=/var/backups/mysql]
+  --debug     verbose mode
+  --dry       dry run
 
 (c) Jochen S. Klar, November 2016
 '''
@@ -46,6 +48,6 @@ for database in databases.split()[1:]:
             'database': database
         }
         if args.debug:
-            print cmd
+            print(cmd)
         if not args.dry:
-          subprocess.call(cmd, shell=True)
+            subprocess.call(cmd, shell=True)

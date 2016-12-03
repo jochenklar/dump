@@ -14,6 +14,8 @@ optional arguments:
   -h, --help  show this help message and exit
   --dir DIR   target directory to store the backups
               [default=/var/backups/postgres]
+  --debug     verbose mode
+  --dry       dry run
 
 (c) Jochen S. Klar, November 2016
 '''
@@ -39,13 +41,13 @@ if not os.path.isdir(args.dir):
 # gather list of databases
 databases = subprocess.check_output(fetch_databases_cmd, shell=True)
 
-for database in databases.split()[1:]:
+for database in databases.split():
     if database not in ['template0', 'template1']:
         cmd = dump_database_cmd % {
             'dir': args.dir,
             'database': database
         }
         if args.debug:
-            print cmd
+            print(cmd)
         if not args.dry:
             subprocess.call(cmd, shell=True)
