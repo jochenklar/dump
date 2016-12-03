@@ -25,7 +25,7 @@ import os
 import subprocess
 
 fetch_databases_cmd = 'psql -l -t | cut -d"|" -f1 | sed -e "s/ //g" -e "/^$/d"'
-dump_database_cmd = 'pg_dump %(database)s | gzip > "%(dir)s/%(database)s.gz"'
+dump_database_cmd = 'pg_dump %(database)s | gzip > "%(dir)s/%(database)s.sql.gz"'
 
 parser = argparse.ArgumentParser(description='This script performs database dumps of all postgres databases in seperate tarballs.')
 parser.add_argument('--dir', action='store', default='/var/backups/postgres', help='target directory to store the backups [default=/var/backups/postgres]')

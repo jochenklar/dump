@@ -25,7 +25,7 @@ import os
 import subprocess
 
 fetch_databases_cmd = 'mysql -e "SHOW DATABASES;"'
-dump_database_cmd = 'mysqldump --lock-tables --complete-insert --add-drop-table --quick --quote-names --databases %(database)s | gzip > "%(dir)s/%(database)s.gz"'
+dump_database_cmd = 'mysqldump --lock-tables --complete-insert --add-drop-table --quick --quote-names --databases %(database)s | gzip > "%(dir)s/%(database)s.sql.gz"'
 
 parser = argparse.ArgumentParser(description='This script performs database dumps of all mysql and postgres database in seperate tarballs.')
 parser.add_argument('--dir', action='store', default='/var/backups/mysql', help='target directory to store the backups [default=/var/backups/mysql]')
