@@ -1,10 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 '''
 This script performs database dumps of all mysql and postgres database in
 seperate tarballs.
 
 Prereqesites: linux :)
-              python 2.7 or 3.4
+              python 3.4
               mysql
               mysqldump
 
@@ -17,7 +17,7 @@ optional arguments:
   --debug     verbose mode
   --dry       dry run
 
-(c) Jochen S. Klar, November 2016
+(c) Jochen S. Klar, 2016-2022
 '''
 
 import argparse
@@ -39,7 +39,7 @@ if not os.path.isdir(args.dir):
     raise Exception('Could not find target directory %(dir)s.' % {'dir': args.dir})
 
 # gather list of databases
-databases = subprocess.check_output(fetch_databases_cmd, shell=True)
+databases = subprocess.check_output(fetch_databases_cmd, shell=True).decode()
 
 for database in databases.split()[1:]:
     if database not in ['information_schema', 'performance_schema', 'sys']:
