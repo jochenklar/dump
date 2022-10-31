@@ -24,6 +24,7 @@ import argparse
 import os
 import subprocess
 from datetime import datetime, timezone
+from pathlib import Path
 
 now = datetime.now(timezone.utc)
 
@@ -39,6 +40,8 @@ group.add_argument('--date', action='store_true',
                    help='add the date to the filename')
 group.add_argument('--datetime', action='store_true',
                    help='add the time and date to the filename')
+parser.add_argument('--keep', action='store', type=int,
+                    help='keep a limited number of dumps [default=unlimited]')
 parser.add_argument('--debug', action='store_true', help='verbose mode')
 parser.add_argument('--dry', action='store_true', help='dry run')
 
@@ -71,3 +74,9 @@ for database in databases.split():
             print(cmd)
         if not args.dry:
             subprocess.call(cmd, shell=True)
+
+            if args.keep is not None:
+                path = Path(args.dir)
+                for i, file_path in enumerate(sorted(path.glob('%s*' % database), reverse=True)):
+                    if i >= args.keep:
+                        file_path.unlink()
