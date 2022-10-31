@@ -1,21 +1,24 @@
 #!/usr/bin/env python3
 '''
-This script performs database dumps of all mysql and postgres database in
-seperate tarballs.
+This script performs database dumps of all mysql databases in seperate zipped files.
 
 Prereqesites: linux :)
               python 3.4
               mysql
               mysqldump
 
-Usage: mysql.py [-h] [--dir DIR]
+Usage: mysql.py [-h] [--dir DIR] [--date | --datetime] [--keep KEEP] [--debug] [--dry]
+
+This script performs database dumps of all mysql and postgres database in seperate tarballs.
 
 optional arguments:
-  -h, --help  show this help message and exit
-  --dir DIR   target directory to store the backups
-              [default=/var/backups/mysql]
-  --debug     verbose mode
-  --dry       dry run
+  -h, --help   show this help message and exit
+  --dir DIR    target directory to store the backups [default=/var/backups/mysql]
+  --date       add the date to the filename
+  --datetime   add the time and date to the filename
+  --keep KEEP  keep a limited number of dumps [default=unlimited]
+  --debug      verbose mode
+  --dry        dry run
 
 (c) Jochen S. Klar, 2016-2022
 '''
@@ -33,7 +36,7 @@ dump_database_cmd = 'mysqldump --events --lock-tables --complete-insert --add-dr
                     '--quote-names --databases %(database)s | gzip > "%(dir)s/%(database)s%(date)s.sql.gz"'
 
 parser = argparse.ArgumentParser(description='This script performs database dumps of all '
-                                             'mysql and postgres database in seperate tarballs.')
+                                             'mysql databases in seperate zipped files.')
 parser.add_argument('--dir', action='store', default='/var/backups/mysql',
                     help='target directory to store the backups [default=/var/backups/mysql]')
 group = parser.add_mutually_exclusive_group()

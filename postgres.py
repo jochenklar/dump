@@ -1,21 +1,24 @@
 #!/usr/bin/env python3
 '''
-This script performs database dumps of all postgres databases in seperate
-tarballs.
+This script performs database dumps of all postgres databases in seperate zipped files.
 
 Prereqesites: linux :)
               python 3.4
               psql
               pg_dump
 
-Usage: postgres.py [-h] [--dir DIR]
+Usage: postgres.py [-h] [--dir DIR] [--date | --datetime] [--keep KEEP] [--debug] [--dry]
+
+This script performs database dumps of all postgres databases in seperate tarballs.
 
 optional arguments:
-  -h, --help  show this help message and exit
-  --dir DIR   target directory to store the backups
-              [default=/var/backups/postgres]
-  --debug     verbose mode
-  --dry       dry run
+  -h, --help   show this help message and exit
+  --dir DIR    target directory to store the backups [default=/var/backups/postgres]
+  --date       add the date to the filename
+  --datetime   add the time and date to the filename
+  --keep KEEP  keep a limited number of dumps [default=unlimited]
+  --debug      verbose mode
+  --dry        dry run
 
 (c) Jochen S. Klar, 2016-2022
 '''
